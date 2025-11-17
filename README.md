@@ -1,32 +1,57 @@
-##keyof operator
+ভূমিকা
 
-This operator is used to gather the keys of any object or type for example
+এই ব্লগ পোস্টে TypeScript-এর দুটি গুরুত্বপূর্ণ বিষয় নিয়ে আলোচনা করা হবে:
 
-```ts
-type Car{
-    name:string; color:string; brand:string;
-}
-```
+keyof অপারেটর কী এবং এটি কীভাবে কাজ করে
 
-the keyof operator gathers the keys which are name, color and brand
+Interface এবং Type-এর পার্থক্যগুলো কী
 
-#Differences between types and interfaces
-##1. they have differnt declaration syntax for example-
+এই দুইটি ধারণা TypeScript-এর টাইপ সিস্টেম বোঝার জন্য অত্যন্ত গুরুত্বপূর্ণ।
 
-```ts
-interface Car{name:string, age:string}, type Car = {name:string, age:string}
-```
+1. keyof অপারেটর কী এবং এটি কীভাবে কাজ করে
 
-##2. Interface can extend other classes but type cannot
+TypeScript-এ keyof একটি বিশেষ অপারেটর যা কোনো টাইপ বা অবজেক্টের সবগুলো key-এর নামকে একটি union টাইপ হিসেবে রিটার্ন করে।
 
-```ts
-interface Audi extends Car {
-  Speed: string;
-}
-```
+এটি কোনো অবজেক্টের প্রপার্টিগুলোকে আলাদা করে সংগ্রহ করে এবং একটি নতুন টাইপ তৈরি করে যা কেবল সেই প্রপার্টিগুলোর নাম ধারণ করে।
 
-##3. In type, unions can be done which cannot be done in interface. For example-
+কখন এটি ব্যবহৃত হয়?
 
-```ts
-type User = 'guest' | 'normal' | 'admin' which cannot be done in interface
-```
+যখন এমন কোনো ফাংশন তৈরি করতে চান যা অবজেক্টের key-কে প্যারামিটার হিসেবে নেবে
+
+Generic টাইপ তৈরির সময় টাইপ সেফটি নিশ্চিত করতে
+
+Dynamic object-access করার সময় ভুল key ব্যবহার না করার জন্য
+
+কেন এটি গুরুত্বপূর্ণ?
+
+জাভাস্ক্রিপ্টে ভুল key ব্যবহার করলে রানটাইমে error হয়, কিন্তু TypeScript-এর keyof অপারেটর ব্যবহার করলে compile-time এ ভুল ধরা পড়ে। এতে কোড আরও নিরাপদ হয়।
+
+2. TypeScript-এ Interface এবং Type-এর মধ্যে পার্থক্য
+
+TypeScript-এ interface এবং type alias প্রায় একই রকম কাজ করলেও কিছু গুরুত্বপূর্ণ পার্থক্য রয়েছে।
+
+1. ডিক্লেয়ারেশনের Syntax ভিন্ন
+
+Interface এবং Type-এর লেখার ধরন আলাদা।
+Interface সাধারণত অবজেক্টের কাঠামো বর্ণনা করতে ব্যবহৃত হয়, আর Type বেশি general-purpose কাজে ব্যবহৃত হয়।
+
+2. Interface এর Extend সুবিধা
+
+Interface এক বা একাধিক interface থেকে extend করতে পারে।
+বড় প্রোজেক্টে কাঠামো সাজাতে এটি খুবই উপকারী।
+
+Type alias সাধারণত extend করতে পারে না একইভাবে, তবে intersection (&) ব্যবহার করা যায়।
+
+3. Union টাইপ শুধুমাত্র Type এ করা যায়
+
+Type alias-এ union টাইপ তৈরি করা যায় ('admin' | 'guest' এর মতো)।
+Interface-এ union টাইপ তৈরি করা যায় না।
+
+4. Declaration Merging শুধু Interface-এ
+
+Interface একাধিকবার declare করলে তারা মিলে যায় (declaration merging)।
+Type alias-এ এটি সম্ভব নয়।
+
+উপসংহার
+
+TypeScript-এর keyof অপারেটর এবং Interface বনাম Type-এর পার্থক্য জানা থাকলে আরও পরিষ্কার, নিরাপদ এবং maintainable কোড লেখা যায়। এগুলো TypeScript শেখার মৌলিক অংশ, বিশেষ করে বড় এবং জটিল প্রোজেক্টে।
